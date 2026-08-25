@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <script src="https://github.com/darzid/WebAudio/blob/main/Tone.js%2Flib%2Fnumber-input.js"></script>
+  <style>
+  number-input {
+    color: red;
+    fill: green;
+    background-color: yellow;
+  }
+
+    .blue-number-input {
+      fill: blue;
+    }
+  </style>
+</head>
+
+<body>
+
+  Element style based fill:<br>
+  <number-input value="10"></number-input>
+  <br>
+  Specific fill:<br>
+  <number-input value="10" fill="red"></number-input>
+  <br>
+  Class based fill:<br>
+  <number-input value="10" class="blue-number-input"></number-input>
+  <br>
+  Float:<br>
+  <number-input value="10" step="0.1" class="blue-number-input"></number-input>
+  <br>
+  <hr>
+  max:
+  <number-input id="max-input" value="2"></number-input>
+  <br>
+  step: 
+  <number-input id="step-input" value="0.1" step="0.01" min="0.01" max="1"></number-input>
+  <br>
+  value:
+  <number-input id="input-with-max" value="1" step="0.1"></number-input>
+  <br>
+  <button id="setValue">Set value</button>
+    <script>
+    let inputWithMax = document.getElementById("input-with-max");
+    inputWithMax.onchange = (ev) => {
+      console.log("changed to " + ev.currentTarget.value);
+    }
+    document.getElementById("max-input").onchange = (ev) => {
+      inputWithMax.max = ev.currentTarget.value;
+    }
+    
+    document.getElementById("step-input").onchange = (ev) => {
+      inputWithMax.step = ev.currentTarget.value;
+    }
+    
+    document.getElementById("setValue").onclick = (ev) => {
+      inputWithMax.value = 5;
+    }
+  </script>
+</body>
+
+</html>
