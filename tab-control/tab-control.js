@@ -95,6 +95,7 @@ customElements.define("tab-control", class TabControl extends HTMLElement {
                 inactiveTabBackgroundColor: {type:String, value:"",     defaultValue:"#b0b0b0"},
                 activeTabBackgroundColor:   {type:String, value:"",     defaultValue:"#d0d0d0"},
                 tabstripLocation:           {type:String, value:"top"},
+                width:                      {type:String, value:"",     defaultValue:"400px"},
                 height:                     {type:String, value:"",     defaultValue:"400px"},
                 'class':                    {type:String, value:"tab-control"}
             },
@@ -106,6 +107,7 @@ customElements.define("tab-control", class TabControl extends HTMLElement {
 .tab-control {
   background-color: ${this.backgroundColor};
   border: 1pt solid rgba(0,0,0,0.5);
+  width: ${this.width};
   height: ${this.height};
   
   .tab-strip {
@@ -126,13 +128,14 @@ customElements.define("tab-control", class TabControl extends HTMLElement {
   }
   
   .tab-panels {
-    height: 400px;
     padding: 5px;
+    height: stretch;
   }
   
   .tab-panel {
     display: none;
-    height: 100%; 
+    height: 94%; 
+    
     border: 1px solid rgba(0,0,0,0.5);
   }
 }
