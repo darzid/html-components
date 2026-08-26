@@ -55,6 +55,8 @@ customElements.define("tab-control", class TabControl extends HTMLElement {
             this.tabButtons.push(tabButton);
             tabButton.onclick = () => this.clickTab(tabButton);
         });
+        
+        this.clickTab(this.tabButtons[0]);
       }
       
     defineprop(computedStyle){
@@ -156,6 +158,7 @@ customElements.define("tab-control", class TabControl extends HTMLElement {
         });
         
         this.ready=function(){
+            
         };
 
         this.clickTab=function(tabButton) {
