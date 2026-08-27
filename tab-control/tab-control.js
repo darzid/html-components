@@ -97,6 +97,7 @@ customElements.define("tab-control", class TabControl extends HTMLElement {
                 inactiveTabBackgroundColor: {type:String, value:"",     defaultValue:"#b0b0b0"},
                 activeTabBackgroundColor:   {type:String, value:"",     defaultValue:"#d0d0d0"},
                 tabstripLocation:           {type:String, value:"top"},
+                canCloseAll:                {type:Boolean, value:false },
                 width:                      {type:String, value:"",     defaultValue:"400px"},
                 height:                     {type:String, value:"",     defaultValue:"400px"},
                 'class':                    {type:String, value:"tab-control"}
@@ -122,6 +123,7 @@ customElements.define("tab-control", class TabControl extends HTMLElement {
     .tab-button {
       border: 1px solid rgba(0,0,0,0.5);
       background-color: ${this.inactiveTabBackgroundColor};
+      transition: 0.3s;
     }
     
     .tab-button.active-tab {
@@ -137,7 +139,7 @@ customElements.define("tab-control", class TabControl extends HTMLElement {
   .tab-panel {
     display: none;
     height: 94%; 
-    
+    transition: 1.3s;
     border: 1px solid rgba(0,0,0,0.5);
   }
 }
@@ -162,22 +164,28 @@ customElements.define("tab-control", class TabControl extends HTMLElement {
         };
 
         this.clickTab=function(tabButton) {
-            console.log("clickTab")
-          // Get all elements with class="tabcontent" and hide them
-          this.tabPanels.forEach(panel => panel.style.display = "none");
-          
-          let openTab = !tabButton.classList.contains("active-tab");
-          
-          // Get all elements with class="tablinks" and remove the class "active"
-          this.tabButtons.forEach(button => button.classList.remove("active-tab"));
-        
-          if (openTab) {
-            // Show the current tab, and add an "active" class to the button that opened the tab
+            let canCloseAll = this.canCloseAll === "true";
+            let isClickedTabOpen = tabButton.classList.contains("active-tab");
+            let shouldCloseTab = isClickedTabOpen && canCloseAll;
+            let shouldSwitchTab = !isClickedTabOpen;
+            console.log(`clickTab, isClickedTabOpen:${isClickedTabOpen}, shouldCloseTab:${shouldCloseTab}, shouldSwitchTab:${shouldSwitchTab}, canCloseAll: ${this.canCloseAll}`);
             let tabPanel = this.tabPanels.find(tabPanel => tabPanel.getAttribute("name") === tabButton.innerText);
-            tabPanel.style.display = "flex";
-            tabButton.classList.add("active-tab");
-            console.log("show panel " + tabButton.innerText)
-          }
+            
+            if (shouldCloseTab) {
+                tabPanel.style.display = "none";
+                tabButton.classList.remove("active-tab");
+                console.log("closed tab", shouldCloseTab)
+                return;
+            } 
+            else if (shouldSwitchTab) {
+                // Get all elements with class="tablinks" and remove the class "active"
+                this.tabButtons.forEach(button => button.classList.remove("active-tab"));
+                this.tabPanels.forEach(panel => panel.style.display = "none");
+                tabPanel.style.display = "flex";
+                tabButton.classList.add("active-tab");
+                console.log("switched tab");
+                return;
+            }
         };
         
         this.ready();
