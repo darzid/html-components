@@ -207,7 +207,7 @@ customElements.define("number-input", class NumberInput extends HTMLElement {
             let progress = 100 * ((this.inputElement.value - this.min) / (this.max - this.min));
             let backgroundImage = `linear-gradient(to right, ${this.fill} 0%, ${this.fill} ${progress}%, ${this.backgroundColor} ${progress}%, ${this.backgroundColor} 100%)`;
             this.inputElement.style.backgroundImage = backgroundImage;
-            //console.log("drawFill()", this.inputElement, backgroundImage);
+            console.log("drawFill2()", this.inputElement, backgroundImage);
         }
         
         this.ready();
