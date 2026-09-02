@@ -214,7 +214,7 @@ customElements.define("number-input", class NumberInput extends HTMLElement {
     }
     
     attributeChangedCallback(name, oldValue, newValue) {
-        console.log(`Attribute ${name} has changed.`);
+        //console.log(`Attribute ${name} has changed.`);
     }
       
     getAttr(n, def) {
