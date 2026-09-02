@@ -35,6 +35,8 @@ customElements.define("number-input", class NumberInput extends HTMLElement {
         this.module = {
             is:"number-input",
             properties:{
+                id:                 {type:String, value:""},
+                name:               {type:String, value:""},
                 fill:               {type:String, value:"",  defaultValue:"#00b7b7"},
                 color:              {type:String, value:"",  defaultValue:"#000000"},
                 backgroundColor:    {type:String, value:"",  defaultValue:"#ffffff"},
@@ -49,6 +51,8 @@ customElements.define("number-input", class NumberInput extends HTMLElement {
         };
         let computedStyle = window.getComputedStyle(this);
         this.defineprop(computedStyle);
+        let idAttribute = this.id ? `id="${this.id}" ` : "";
+        let nameAttribute = this.name ? `name="${this.name}" ` : "";
         root.innerHTML =
 `<style>
 .number-input {
@@ -63,7 +67,7 @@ customElements.define("number-input", class NumberInput extends HTMLElement {
     margin:0;
 }
 </style>
-<input id="${this.id}" name="${this.name}" type="number" class="${this.class}" min="${this.min}" max="${this.max}" step="${this.step}" value="${this.value}">`;
+<input ${idAttribute} ${nameAttribute} type="number" class="${this.class}" min="${this.min}" max="${this.max}" step="${this.step}" value="${this.value}">`;
         this.ready=function(){
             console.log("ready()");
             
