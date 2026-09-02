@@ -52,7 +52,7 @@ customElements.define("number-input", class NumberInput extends HTMLElement {
         let computedStyle = window.getComputedStyle(this);
         this.defineprop(computedStyle);
         let idAttribute = this.id ? `id="${this.id}" ` : "";
-        let nameAttribute = this.name ? `name="${this.name}" ` : "";
+        let nameAttribute = this.name ? `name="${this.getAttribute("name")}" ` : "";
         root.innerHTML =
 `<style>
 .number-input {
