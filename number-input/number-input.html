@@ -7,20 +7,28 @@
   <title></title>
   <script src="number-input.js"></script>
   <style>
+  
   number-input {
-    color: red;
+    color: white;
     fill: green;
-    background-color: yellow;
+    
   }
 
     .blue-number-input {
       fill: blue;
     }
+    
+    .fader {
+      max-width: 20px;
+      height: 10vh;
+    }
   </style>
 </head>
 
 <body>
-
+Fader style based fill:<br>
+<number-input value="10" class="fader" fillDirection="top"></number-input>
+<br>
   Element style based fill:<br>
   <number-input value="10"></number-input>
   <br>
