@@ -39,7 +39,6 @@ customElements.define("number-input", class NumberInput extends HTMLElement {
                 id:                 {type:String, value:""},
                 name:               {type:String, value:""},
                 fill:               {type:String, value:"",  defaultValue:"#00b7b7"},
-                focusFill:          {type:String, value:"",  defaultValue:"#00c7c7"},
                 fillDirection:      {type:String, value:"right" },
                 color:              {type:String, value:""},
                 backgroundColor:    {type:String, value:"",  defaultValue:"#ffffff"},
@@ -213,16 +212,7 @@ input {
         this.drawFill=function() {
             let progress = 100 * ((this.inputElement.value - this.min) / (this.max - this.min));
             let backgroundImage = `linear-gradient(to ${this.fillDirection}, ${this.fill} 0%, ${this.fill} ${progress}%, ${this.backgroundColor} ${progress}%, ${this.backgroundColor} 100%)`;
-            let focusBackgroundImage = `linear-gradient(to ${this.fillDirection}, ${this.focusFill} 0%, ${this.focusFill} ${progress}%, ${this.backgroundColor} ${progress}%, ${this.backgroundColor} 100%)`;
-            
-            if (this.inputElement == document.activeElement) {
-                this.inputElement.style.backgroundImage = focusBackgroundImage;
-            } else {
-                this.inputElement.style.backgroundImage = backgroundImage;
-            }
-            
-            this.inputElement.addEventListener("focusin", ()=>this.inputElement.style.backgroundImage = focusBackgroundImage);
-            this.inputElement.addEventListener("focusout", ()=>this.inputElement.style.backgroundImage = backgroundImage);
+            this.inputElement.style.backgroundImage = backgroundImage;
             //console.log("drawFill2()", this.inputElement, backgroundImage);
         }
         
