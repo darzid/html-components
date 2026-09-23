@@ -139,6 +139,9 @@ input {
         this.bindpointerdown=this.pointerdown.bind(this);
         
         this.touchmove=function(ev){
+            if (this.inputElement != document.activeElement) {
+                this.inputElement.focus();
+            }
             let e = ev.touches ? ev.touches[0] : ev;
             let movementX = e.clientX - this.pointerDownPosition.clientX;
             let movementY = e.clientY - this.pointerDownPosition.clientY;
