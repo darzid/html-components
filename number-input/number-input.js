@@ -160,6 +160,7 @@ input {
             this.drawFill();
             this.sendOnInput();
             this.sendOnChange();
+            ev.preventDefault();
         };
         this.bindtouchmove=this.touchmove.bind(this);
         
