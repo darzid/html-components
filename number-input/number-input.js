@@ -151,7 +151,8 @@ input {
             
             let decimals = this.step ? parseFloat(this.step).countDecimals() : 0;
             let value = (parseFloat(this.inputElement.value) + ((movement / 100) * range));
-            value = parseFloat(value.toFixed(decimals)).clamp(this.min, this.max);
+            let quantizedValue = Math.floor(value / this.step) * this.step;
+            value = parseFloat(quantizedValue.toFixed(decimals)).clamp(this.min, this.max);
             
             this.pointerDownPosition.clientX = e.clientX;
             this.pointerDownPosition.clientY = e.clientY;
