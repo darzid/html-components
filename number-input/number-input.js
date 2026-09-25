@@ -142,17 +142,19 @@ input {
             if (this.inputElement != document.activeElement) {
                 this.inputElement.focus();
             }
+            
+            const quantizeValue = (value) => Math.floor(value / this.step) * this.step;
+            
             let e = ev.touches ? ev.touches[0] : ev;
             let movementX = e.clientX - this.pointerDownPosition.clientX;
             let movementY = e.clientY - this.pointerDownPosition.clientY;
             
             let range = parseFloat(this.max) - parseFloat(this.min);
-            let movement = (Math.abs(movementY) > Math.abs(movementX)) ? -0.25 * movementY : 1 * movementX;
+            let movement = (Math.abs(movementY) > Math.abs(movementX)) ? -this.step * movementY : 1 * movementX;
             
             let decimals = this.step ? parseFloat(this.step).countDecimals() : 0;
-            let value = (parseFloat(this.inputElement.value) + ((movement / 100) * range));
-            let quantizedValue = Math.floor(value / this.step) * this.step;
-            value = parseFloat(quantizedValue.toFixed(decimals)).clamp(this.min, this.max);
+            let value = quantizeValue(parseFloat(this.inputElement.value) + ((movement / 100) * range));
+            value = parseFloat(value.toFixed(decimals)).clamp(this.min, this.max);
             
             this.pointerDownPosition.clientX = e.clientX;
             this.pointerDownPosition.clientY = e.clientY;
@@ -162,6 +164,8 @@ input {
             this.sendOnInput();
             this.sendOnChange();
             ev.preventDefault();
+            
+            
         };
         this.bindtouchmove=this.touchmove.bind(this);
         
