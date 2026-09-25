@@ -118,6 +118,7 @@ customElements.define("tab-control", class TabControl extends HTMLElement {
     padding: 0px;
     padding-left: 1px;
     width: stretch;
+    height: auto;
     background-color: ${this.tabstripBackgroundColor};
     
     .tab-button {
