@@ -141,6 +141,7 @@ input {
         this.touchmove=function(ev){
             if (this.inputElement != document.activeElement) {
                 if (document.activeElement.nodeType == "number-input") {
+                    console.log("Forcing blur on other number-input");
                     document.activeElement.blur();
                 }
             }
