@@ -140,7 +140,9 @@ input {
         
         this.touchmove=function(ev){
             if (this.inputElement != document.activeElement) {
-                //this.inputElement.focus();
+                if (document.activeElement.nodeType == "number-input") {
+                    document.activeElement.blur();
+                }
             }
             
             const quantizeValue = (value) => Math.floor(value / this.step) * this.step;
