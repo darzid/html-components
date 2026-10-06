@@ -1,6 +1,7 @@
 customElements.define("number-input", class NumberInput extends HTMLElement {
     constructor(){
         super();
+        this._editMode = false;
     }
     
     defineprop(computedStyle){
@@ -74,7 +75,7 @@ input {
     margin:0;
 }
 </style>
-<input ${idAttribute} ${nameAttribute} type="number" class="${this.class}" min="${this.min}" max="${this.max}" step="${this.step}" value="${this.value}">`;
+<input ${idAttribute} ${nameAttribute} type="number" class="${this.class}" min="${this.min}" max="${this.max}" step="${this.step}" value="${this.value}" readonly="true">`;
         this.ready=function(){
             console.log("ready()");
             
@@ -82,6 +83,8 @@ input {
             this.inputElement.addEventListener("input", this.bindinput, false);
             this.inputElement.addEventListener("change", this.bindchange, false);
             this.inputElement.addEventListener("pointerdown", this.bindpointerdown, false);
+            this.inputElement.addEventListener("dblclick", this.binddblclick, false);
+            this.inputElement.addEventListener("blur", this.bindblur, false);
         
             this.pointerDownPosition = null;
             
@@ -130,6 +133,7 @@ input {
         this.bindchange=this.change.bind(this);
         
         this.pointerdown=function(ev) {
+            if (this._editMode) return;
             this.pointerDownPosition = { clientX: ev.clientX, clientY: ev.clientY };
             
             window.addEventListener("touchmove", this.bindtouchmove, false);
@@ -167,8 +171,6 @@ input {
             this.sendOnInput();
             this.sendOnChange();
             ev.preventDefault();
-            
-            
         };
         this.bindtouchmove=this.touchmove.bind(this);
         
@@ -178,6 +180,19 @@ input {
             window.removeEventListener("touchend", this.bindpointerup, false);
         };
         this.bindpointerup=this.pointerup.bind(this);
+        
+        this.dblclick=function(ev) {
+            console.log("dbl click")
+            this.inputElement.readOnly = !this.inputElement.readOnly;
+            this._editMode = !this.inputElement.readOnly;
+        };
+        this.binddblclick=this.dblclick.bind(this);
+        
+        this.blur=function(ev) {
+            this.inputElement.readOnly = true;
+            this._editMode = !this.inputElement.readOnly;
+        };
+        this.bindblur=this.blur.bind(this);
         
         this.updateRange=function(){
             if (this.min && this.min != this.inputElement.min) {
