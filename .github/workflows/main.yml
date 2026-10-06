@@ -27,10 +27,12 @@ jobs:
       - name: Copy files
         run: |
           mkdir _site
-          cp number-input/number-input.js _site
-          cp number-input/number-input.html _site
-          cp tab-control/tab-control.js _site
-          cp tab-control/tab-control.html _site
+          mkdir _site/number-input
+          mkdir _site/tab-control
+          cp number-input/number-input.js _site/number-input
+          cp number-input/number-input.html _site/number-input
+          cp tab-control/tab-control.js _site/tab-control
+          cp tab-control/tab-control.html _site/tab-control
           cp index.html _site
       
       - name: Upload Pages artifact
