@@ -186,13 +186,13 @@ input {
             ev.preventDefault();
             
             console.log("wheel", ev.deltaY);
-            const quantizeValue = (value) => Math.floor(value / this.step) * this.step;
+            //const quantizeValue = (value) => Math.floor(value / this.step) * this.step;
             
             let range = parseFloat(this.max) - parseFloat(this.min);
             let movement = (ev.deltaY / 100) * this.step;
             
             let decimals = this.step ? parseFloat(this.step).countDecimals() : 0;
-            let value = quantizeValue(parseFloat(this.inputElement.value) + movement);
+            let value = parseFloat(this.inputElement.value) + movement;
             value = parseFloat(value.toFixed(decimals)).clamp(this.min, this.max);
             
             this.inputElement.value = value;
