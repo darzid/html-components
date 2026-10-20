@@ -185,7 +185,7 @@ input {
         this.wheel=function(ev) {
             ev.preventDefault();
             
-            console.log("wheel");
+            console.log("wheel", ev.deltaY);
             let range = parseFloat(this.max) - parseFloat(this.min);
             let movement = ev.deltaY;
             
