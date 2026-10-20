@@ -192,7 +192,7 @@ input {
             let movement = (ev.deltaY / 100) * this.step;
             
             let decimals = this.step ? parseFloat(this.step).countDecimals() : 0;
-            let value = quantizeValue(parseFloat(this.inputElement.value) + ((movement / 100) * range));
+            let value = quantizeValue(parseFloat(this.inputElement.value) + movement);
             value = parseFloat(value.toFixed(decimals)).clamp(this.min, this.max);
             
             this.inputElement.value = value;
