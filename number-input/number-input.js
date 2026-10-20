@@ -190,6 +190,7 @@ input {
             
             let range = parseFloat(this.max) - parseFloat(this.min);
             let movement = (ev.deltaY / 100) * this.step;
+            if (ev.ctrlKey) movement = movement * 10;
             
             let decimals = this.step ? parseFloat(this.step).countDecimals() : 0;
             let value = parseFloat(this.inputElement.value) + movement;
