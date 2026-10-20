@@ -83,6 +83,7 @@ input {
             this.inputElement.addEventListener("input", this.bindinput, false);
             this.inputElement.addEventListener("change", this.bindchange, false);
             this.inputElement.addEventListener("pointerdown", this.bindpointerdown, false);
+            this.inputElement.addEventListener("wheel", this.bindwheel, false);
             this.inputElement.addEventListener("dblclick", this.binddblclick, false);
             this.inputElement.addEventListener("blur", this.bindblur, false);
         
@@ -181,6 +182,23 @@ input {
         };
         this.bindpointerup=this.pointerup.bind(this);
         
+        this.wheel=function(ev) {
+            ev.preventDefault();
+            
+            let range = parseFloat(this.max) - parseFloat(this.min);
+            let movement = ev.deltaY;
+            
+            let decimals = this.step ? parseFloat(this.step).countDecimals() : 0;
+            let value = quantizeValue(parseFloat(this.inputElement.value) + ((movement / 100) * range));
+            value = parseFloat(value.toFixed(decimals)).clamp(this.min, this.max);
+            
+            this.inputElement.value = value;
+            this.drawFill();
+            this.sendOnInput();
+            this.sendOnChange();
+        };
+        this.bindwheel=this.wheel.bind(this);
+        
         this.dblclick=function(ev) {
             console.log("dbl click")
             this.inputElement.readOnly = !this.inputElement.readOnly;
@@ -261,7 +279,7 @@ input {
     }
     
     attributeChangedCallback(name, oldValue, newValue) {
-        //console.log(`Attribute ${name} has changed.`);
+        console.log(`Attribute ${name} has changed.`);
     }
       
     getAttr(n, def) {
