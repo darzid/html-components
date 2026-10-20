@@ -189,7 +189,7 @@ input {
             const quantizeValue = (value) => Math.floor(value / this.step) * this.step;
             
             let range = parseFloat(this.max) - parseFloat(this.min);
-            let movement = ev.deltaY / range;
+            let movement = ev.deltaY / range / this.step;
             
             let decimals = this.step ? parseFloat(this.step).countDecimals() : 0;
             let value = quantizeValue(parseFloat(this.inputElement.value) + ((movement / 100) * range));
