@@ -186,6 +186,8 @@ input {
             ev.preventDefault();
             
             console.log("wheel", ev.deltaY);
+            const quantizeValue = (value) => Math.floor(value / this.step) * this.step;
+            
             let range = parseFloat(this.max) - parseFloat(this.min);
             let movement = ev.deltaY;
             
